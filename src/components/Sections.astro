@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+
+const sectionEntries = await getCollection('sections');
+
+const renderedEntries = await Promise.all(
+  sectionEntries.map(async (entry) => {
+    const { Content } = await entry.render(); 
+    return { data: entry.data, Content };
+  })
+);
+---
+
+<main>
+  {renderedEntries.map(({ data, Content}) => (
+    <section id={data.sectionId} class={`${data.sectionId} section`}>
+      <div class="section-title">{data.title}</div>
+      <div class="section-content">
+        <Content />
+      </div>
+    </section>
+  ))}
+</main>
+
+<style is:global>
+  .section-content {
+    h3 {
+      color: #47B353;
+      font-weight: bold;
+      margin: 0;
+      font-size: 14px;
+    }
+    strong {
+      color: #F57900;
+
+    }
+    p {
+      margin: 0 !important;
+    }
+  }

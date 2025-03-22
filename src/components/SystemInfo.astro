@@ -1,0 +1,83 @@
+---
+import { skills } from "../utils/constants";
+---
+
+<div class="system-info">
+  <div>
+    <span class="label">Description:</span>
+    <span class="value">Full stack developer with +4 years of experience and with a real passion for learning new technologies and building cool stuff.</span>
+  </div>
+  <div>
+    <span class="label">Framework:</span>
+    <span class="value">Astro</span>
+  </div>
+  <div>
+    <span class="label">Version:</span>
+    <span class="value">5.5.3</span>
+  </div>
+  <div>
+    <span class="label">Browser:</span>
+    <span class="value" id="browser"></span>
+  </div>
+  <div>
+    <span class="label">Last connection:</span>
+    <span class="value" id="connection">Wed Mar 19 14:32:05 2025 from 192.168.1.10</span>
+  </div>
+  <div>
+    <span class="label">Skills:</span>
+    <div class="skills">
+      {skills.map((skill) => (
+        <span class="skill-badge">{skill}</span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  import { getBrowser, getMyIP, getMyLocation } from "../utils/helpers";
+  import type { Location } from "../utils/types";
+  const browser = getBrowser();
+  const elbrower = document.getElementById("browser");
+  if (elbrower) {
+    elbrower.textContent = browser? `${browser.name} ${browser.version}` : "Unknown";
+  }
+  const ip = await getMyIP();
+  const location = await getMyLocation(ip);
+
+  function formatConnection(ip:string, location: Location | null) {
+    const locationStr = [location?.city, location?.country].filter(Boolean).join(", ");
+    return `${new Date().toDateString()} from ${ip} (${locationStr})`;
+  }
+
+  const elconnection = document.getElementById("connection");
+  if (elconnection) {
+    elconnection.textContent = formatConnection(ip, location);
+  }
+</script>
+
+<style>
+  .system-info {
+    padding-left: 1rem;
+    max-width: 700px;
+    div {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+    }
+    .label {
+      color: #729FCF;
+      width: 120px;
+      padding-right: 10px;
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      .skill-badge {
+        background-color: #772953;
+        color: white;
+        padding: 2px 5px;
+        border-radius: 5px;
+      }
+    }
+  }
+</style>

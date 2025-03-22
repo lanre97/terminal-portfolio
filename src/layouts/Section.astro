@@ -1,0 +1,19 @@
+---
+const { frontmatter } = Astro.props;
+---
+<section id={frontmatter.sectionId} class={`${frontmatter.sectionId} section`}>
+  <div class="section-title">{frontmatter.title}</div>
+  
+  {frontmatter.items.map((item: any) => (
+    <div class={`${frontmatter.sectionId.replace('-section', '')}-item`}>
+      <div class="item-title">{item.title}</div>
+      <div class="item-subtitle">
+        {item.subtitle}
+      </div>
+      <div class="item-description">
+        {item.description}
+      </div>
+    </div>
+  ))}
+  <slot />
+</section>

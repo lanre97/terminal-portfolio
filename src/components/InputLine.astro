@@ -1,0 +1,57 @@
+<div class="input-line" style="padding: 0 1rem 0 1rem;">
+  <span class="prompt" style="white-space: nowrap;">guest@dev-machine:~$</span>
+  <input type="text" id="command-input" class="command-input" autocomplete="off" autofocus>
+</div>
+
+<script>
+import { Terminal } from "../lib/terminal";
+
+const terminal = Terminal.getInstance();
+const commandInput = document.getElementById("command-input") as HTMLInputElement;
+commandInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    terminal.runCommand(commandInput.value);
+    commandInput.value = "";
+  }
+  if (e.key === "Tab") {
+    e.preventDefault();
+    const command = terminal.autoComplete(commandInput.value);
+    commandInput.value = command;
+  }
+  if (e.key === "ArrowUp") {
+    e.preventDefault();
+    commandInput.value = terminal.getPreviousCommand();
+  }
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    commandInput.value = terminal.getNextCommand();
+  }
+  //Scroll the document to the bottom
+  window.scrollTo(0, document.body.scrollHeight);
+});
+document.onclick = () => {
+  commandInput.focus();
+};
+</script>
+
+<style is:global>
+  .input-line {
+    display: flex;
+    align-items: center;
+    gap:4px;
+    .prompt {
+      color: #47B353;
+    }
+    .command-input {
+      flex-grow: 1;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      font-family: monospace;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+</style>

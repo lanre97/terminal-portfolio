@@ -1,0 +1,72 @@
+---
+import AsciiArt from "./AsciiArt.astro"
+import CommandHistory from "./CommandHistory.astro"
+import InputLine from "./InputLine.astro"
+import Sections from "./Sections.astro"
+import SystemInfo from "./SystemInfo.astro"
+import Welcome from "./Welcome.astro"
+---
+
+<div class="terminal">
+  <div class="terminal-content">
+    <AsciiArt />
+    <SystemInfo />
+    <Welcome />
+    <CommandHistory />
+    <Sections />
+  </div>
+  <InputLine />
+</div>
+
+<style is:global>
+  .terminal {
+    border: 1px solid #772953;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    min-height: calc(100vh - 30px);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  .terminal-content {
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  .project-item, .experience-item, .education-item {
+    margin-bottom: 15px;
+    border-left: 2px solid #772953;
+    padding-left: 10px;
+  }
+
+  .projects-section, .experience-section, .education-section {
+    padding-left: 1rem;
+    a {
+      color: #729FCF;
+    }
+  }
+
+  .section {
+    display: none;
+  }
+  
+  .item-title {
+    color: #47B353;
+    font-weight: bold;
+  }
+  
+  .item-subtitle {
+    color: #F57900;
+    font-style: italic;
+  }
+  
+  .item-description {
+    margin-top: 5px;
+    color: #EEEEEC;
+  }
+  
+  .section-title {
+    color: #729FCF;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+</style>

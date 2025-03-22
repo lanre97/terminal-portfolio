@@ -1,0 +1,11 @@
+body {
+  background-color: #300a24;
+  color: #fff;
+  font-family: monospace;
+  margin: 0;
+  padding: 1rem;
+  line-height: 1.2;
+  height: 100vh;
+  overflow: scroll-y;
+  font-family: monospace;
+}
