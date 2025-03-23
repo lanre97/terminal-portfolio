@@ -39,7 +39,7 @@ export class ContactCommand implements Command {
       
       return `
         <p>Starting contact form...</p>
-        <p>Please enter your name (or type 'skip' to leave blank):</p>
+        <p>Please enter your name. Leave it blank and press Enter if you don't want to provide one:</p>
         <p class="hint">To cancel at any time, type 'cancel'</p>
       `;
     }
@@ -76,12 +76,8 @@ export class ContactCommand implements Command {
   }
   
   private handleNameStep(input: string): string {
-    if (input.toLowerCase() === 'skip') {
-      this.flowState.data.name = '';
-    } else {
-      this.flowState.data.name = input;
-    }
-    
+    this.flowState.data.name = input.trim();  // If the user presses Enter, this will be ''
+
     this.flowState.step = 'email';
     return '<p>Please enter your email (required):</p>';
   }
@@ -91,18 +87,14 @@ export class ContactCommand implements Command {
       return '<p class="error">Please provide a valid email address:</p>';
     }
     
-    this.flowState.data.email = input;
+    this.flowState.data.email = input.trim();
     this.flowState.step = 'subject';
-    return '<p>Please enter a subject (or type "skip" to leave blank):</p>';
+    return '<p>Please enter a subject. Leave it blank and press Enter if you don’t need one:</p>';
   }
   
   private handleSubjectStep(input: string): string {
-    if (input.toLowerCase() === 'skip') {
-      this.flowState.data.subject = '';
-    } else {
-      this.flowState.data.subject = input;
-    }
-    
+    this.flowState.data.subject = input.trim();
+
     this.flowState.step = 'message';
     return '<p>Please enter your message (required, multi-line supported):</p><p class="hint">Type "done" on a new line when finished.</p>';
   }

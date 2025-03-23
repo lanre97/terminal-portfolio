@@ -8,6 +8,7 @@ export const POST: APIRoute = async ({ request }) => {
     const formData = await request.formData();
     const email = formData.get('email')?.toString();
     const message = formData.get('message')?.toString();
+    const subject = formData.get('subject')?.toString();
 
     if (!email || !message) {
       return new Response(
@@ -30,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
     const msg = {
       to: import.meta.env.PUBLIC_CONTACT_EMAIL,
       from: import.meta.env.PUBLIC_FROM_EMAIL,
-      subject: 'New contact from your portfolio website',
+      subject: subject || 'New contact from your portfolio website',
       text: `Message from: ${email}\n\n${message}`,
       html: `<p><strong>Message from:</strong> ${email}</p><p>${message.replace(/\n/g, '<br>')}</p>`,
       replyTo: email

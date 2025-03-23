@@ -12,5 +12,5 @@ sectionId: "education-section"
 - Advanced studies and research in Mechatronics Engineering.
 
 ### Relational Databases (SQL Server)
-****CEPSUNI | 2018**
+**CEPSUNI | 2018**
 - Coursework in relational databases using SQL Server.

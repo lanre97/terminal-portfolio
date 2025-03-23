@@ -1,19 +1,17 @@
 ---
-title: "PROJECTS"
+title: "SIDE PROJECTS"
 sectionId: "projects-section"
 ---
 
-### E-commerce Dashboard
-**Vanilla JavaScript, HTML5, CSS3**
+### Live Translator
+**Next.js, Azure Cognition API**  
+**Link:** [live-translator-nine.vercel.app](https://live-translator-nine.vercel.app/) (Recently built)
 
-- Control panel for online store with real-time data visualization, advanced filters, and sales statistics. Includes dynamic charts and inventory alert system.
+- Real-time interpretation application. To test it, make sure both users select different languages to activate the translation.
 
-### Task Manager App
-**React, Node.js, MongoDB**
+### DROP (Eztransfer)
+**Next.js, Firebase, WebRTC**  
+**Link:** [eztransfer.vercel.app](https://eztransfer.vercel.app/) (Developed 2 years ago)
 
-- Task management application with drag-and-drop functionalities, reminders, customizable tags, and cross-device synchronization.
-
-### Terminal Portfolio
-**HTML5, CSS3, JavaScript**
-
-- Interactive terminal-style portfolio that allows navigation between sections by simulating a Unix command line experience.
+- Uses the WebRTC API to enable two users to exchange files of any size directly and for free.  
+- **GitHub:** [lanre97/eztransfer](https://github.com/lanre97/eztransfer)
