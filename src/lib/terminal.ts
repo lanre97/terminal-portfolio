@@ -1,6 +1,8 @@
 import { commands, sections } from "../utils/constants";
 import { errors } from "../utils/errors";
 import { CatCommand } from "./commands/catCommand";
+import type { Command } from "./commands/command";
+import { ContactCommand } from "./commands/contactCommand";
 import { HelpCommand } from "./commands/helpCommand";
 import { ListCommand } from "./commands/listCommand";
 
@@ -9,6 +11,7 @@ export class Terminal {
   private commandHistory: string[] = [];
   private currentIndex: number = 0;
   private elCommandHistory: HTMLDivElement;
+  private activeFlowCommand: Command | null = null;
   private constructor() {
     this.elCommandHistory = document.getElementById('command-history') as HTMLDivElement;
   }
@@ -78,6 +81,11 @@ export class Terminal {
       case CatCommand.name:
         this.clearCommandHistory();
         return new CatCommand().process(args);
+      case ContactCommand.name:
+        if (!this.activeFlowCommand) {
+          this.activeFlowCommand = new ContactCommand();
+        }
+        return this.activeFlowCommand.process(args);
       default:
         return `<p class="error">${errors.INVALID_COMMAND.replace('{command}', command)}</p>`;
     }
@@ -91,24 +99,49 @@ export class Terminal {
   }
 
   runCommand(command: string) {
+    // Si estamos en un flujo activo, procesamos todo con esa instancia
+    if (this.activeFlowCommand) {
+      const [firstWord] = command.split(' ');
+  
+      if (firstWord.toLowerCase() === 'cancel') {
+        this.addCommandHistory(command, this.activeFlowCommand.process(['cancel']));
+        this.activeFlowCommand = null;
+        return;
+      }
+  
+      const output = this.activeFlowCommand.process(command.split(' '));
+      this.addCommandHistory(command, output);
+  
+      // Si se completó (por ejemplo, con "send" o se canceló)
+      if (command.toLowerCase() === 'send' || output.includes('Contact form cancelled')) {
+        this.activeFlowCommand = null;
+      }
+  
+      return;
+    }
+  
     const [commandName, ...args] = command.split(' ');
     if (!commandName) {
       return;
     }
+  
     if (commandName === 'clear') {
       this.clearCommandHistory();
       this.clearSections();
       return;
     }
+  
     if (commandName === 'exit') {
       location.reload();
       return;
     }
+  
+    // Limpio secciones si no es 'cat'
     if (commandName !== CatCommand.name) {
       this.clearSections();
     }
-
+  
     const output = this.processCommand(commandName, args);
     this.addCommandHistory(command, output);
-  }
+  }  
 }
