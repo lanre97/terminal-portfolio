@@ -36,7 +36,7 @@ export const commands = [
   },
   {
     name: 'contact',
-    description: 'Display contact information. Use --cv to download CV',
+    description: 'Send me an email',
   },
   {
     name: 'clear',

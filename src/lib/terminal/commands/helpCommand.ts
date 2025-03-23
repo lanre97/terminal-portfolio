@@ -1,5 +1,5 @@
 import type { Command } from "./command";
-import { commands } from "../../utils/constants";
+import { commands } from "../../../utils/constants";
 
 export class HelpCommand implements Command {
   static name: string = 'help';

@@ -1,5 +1,5 @@
-import { commands, sections } from "../utils/constants";
-import { errors } from "../utils/errors";
+import { commands, sections } from "../../utils/constants";
+import { errors } from "../../utils/errors";
 import { CatCommand } from "./commands/catCommand";
 import type { Command } from "./commands/command";
 import { ContactCommand } from "./commands/contactCommand";

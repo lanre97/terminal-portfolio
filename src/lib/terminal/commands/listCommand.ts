@@ -1,4 +1,4 @@
-import { sections } from "../../utils/constants";
+import { sections } from "../../../utils/constants";
 import type { Command } from "./command";
 
 export class ListCommand implements Command {
